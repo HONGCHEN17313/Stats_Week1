@@ -1,0 +1,148 @@
+---
+title: "Stats_Week1_HW"
+format: html
+editor: visual
+---
+
+## Hello From Hong
+
+I am a first-year PhD in the Joint Program of Public Policy and Sociology. My research interests are migration, higher education and social mobility. I have taken two quarters of social statistics at UCLA; however, it has been 2 years, and my memory has faded quickly. I have done some qualitative research but have not yet had the opportunity to apply my quantitative skill to real research projects. I hope to gain practical experience in quantitative research through this statistics series.
+
+### Library Package
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(gapminder)
+library(tinytable)
+library(knitr)
+library(kableExtra)
+
+theme_set(theme_light())
+```
+
+### Data
+
+```{r}
+d <- gapminder
+ds <- d |>
+  filter(year == 1992) #keep 1992
+
+```
+
+### 
+
+## Univariate plots
+
+## 
+
+```{r}
+# density plot
+ggplot(ds,
+       aes(lifeExp))+
+  geom_density()
+```
+
+## 
+
+```{r}
+# histogram
+ggplot(ds,
+       aes(lifeExp))+
+  geom_histogram(binwidth = 5,
+                 boundary = 0,
+                 color = "blue")
+```
+
+## 
+
+```{r}
+#histogram
+ggplot(ds,
+       aes(pop))+
+  geom_histogram(binwidth = 10000000,
+                 boundary = 0,
+                 color = "blue")
+```
+
+## 
+
+```{r}
+# bar graph
+ggplot(ds,
+       aes(x = continent))+
+  geom_bar()
+```
+
+## Bivariate plots
+
+## 
+
+```{r}
+# scatterplot
+ggplot(ds,
+       aes(x = gdpPercap,
+           y = lifeExp))+
+  geom_point()
+```
+
+## 
+
+```{r}
+# bar graph
+ds |> 
+  group_by(continent) |>
+  summarize (Life = mean(lifeExp)) |>
+ggplot(aes(x = continent,
+           y = Life))+
+  geom_bar(stat = "identity")
+```
+
+## 
+
+```{r}
+# strip plot
+ggplot(ds,
+       aes(x = pop,
+       y = continent))+
+  geom_point(alpha=0.8)
+```
+
+## 
+
+```{r}
+#strip plot
+ggplot(ds,
+       aes(x = pop,
+           y = continent))+
+  geom_jitter(height = 0.3,
+              width = 0.3,
+              alpha= 0.3)
+```
+
+## Time Plots (Bivariate)
+
+I will go back to full data to see trends in Asia
+
+```{r}
+Asia_plot <- d |>
+  filter (continent == "Asia") |>
+  ggplot(aes(x = year,
+             y = gdpPercap,
+             group = country,
+             color = country))+
+  geom_line()
+```
+
+```{r}
+Asia_plot
+```
+
+## 
+
+::: r-fit-text
+My work is done!
+:::
